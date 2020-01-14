@@ -1,0 +1,21 @@
+<resources>
+    <string name="app_name">FunDarsShiyou</string>
+
+
+    <string name="user_name">m.khaled</string>
+    <string name="user_password">123456</string>
+    <string name="Login_preference">com.mk_kadish.mk1_sharedpreferences_Login_preference </string>
+    <string name="login_status_preference">com.mk_kadish.mk1_sharedpreferences_login_status_preference</string>
+
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_activity_login">Sign in</string>
+    <string name="prompt_email">Email</string>
+    <string name="prompt_password">Password</string>
+    <string name="action_sign_in">Sign in or register</string>
+    <string name="action_sign_in_short">Sign in</string>
+    <string name="welcome">"Welcome !"</string>
+    <string name="invalid_username">Not a valid username</string>
+    <string name="invalid_password">Password must be >5 characters</string>
+    <string name="login_failed">"Login failed"</string>
+
+</resources>
