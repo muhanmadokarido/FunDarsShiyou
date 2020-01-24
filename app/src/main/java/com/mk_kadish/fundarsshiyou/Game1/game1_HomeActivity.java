@@ -1,82 +1,90 @@
 package com.mk_kadish.fundarsshiyou.Game1;
 
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.os.Handler;
+import android.util.DisplayMetrics;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
-
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-
+import com.mk_kadish.fundarsshiyou.AllSharedPrefernces;
+import com.mk_kadish.fundarsshiyou.DatabaseRelations.SchoolDbHelper;
 import com.mk_kadish.fundarsshiyou.R;
+import com.mk_kadish.fundarsshiyou.indexActivity;
 
 import java.util.ArrayList;
 import java.util.Locale;
 
 public class game1_HomeActivity extends AppCompatActivity {
+    private String sharedTimer;
+    private AllSharedPrefernces allSharedPrefernces;
 
+    View view1;
+    int position1;
+    private int height;
+    private int width;
     private static final long START_TIME_IN_MILLIS = 120000;
     private long mtimeUsed;
     private TextView mTextViewCountDown;
     private  TextView textViewPairs;
-    private TextView bestrecord;
-
     private Button mButtonStartPause;
     private Button mButtonReset;
     private CountDownTimer mCountDownTimer;
+    private Long pointsCounter;
     private boolean mTimerRunning;
     private long mTimeLeftInMillis = START_TIME_IN_MILLIS;
     ArrayList<Game1KeyValue> allpairs = new ArrayList<>();
     boolean isMatch=false;
-
-
+    ImageAdapter imageAdapter2;
     ImageView curView = null;
     private int countPair = 0;
-    final int[] drawable = new int[] {
-            R.drawable.sample_0,
-            R.drawable.sample_1,
-            R.drawable.sample_2,
-            R.drawable.sample_3,
-            R.drawable.sample_4,
-            R.drawable.sample_5,
-            R.drawable.sample_6,
-            R.drawable.sample_7,
-            R.drawable.sample_8,
-            R.drawable.sample_9,
-            R.drawable.sample_10,
-            R.drawable.sample_11,
-            R.drawable.sample_12,
-            R.drawable.sample_13,
-            R.drawable.sample_14,
-            R.drawable.sample_15
-    };
-    int[] pos = {0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15};
+    TextView tv6;
+    TextView myPoints;
+    public int[] drawable=new int[]
+            {
+                    R.drawable.no,
+                    R.drawable.no_ar,
+                    R.drawable.yes_ar,
+                    R.drawable.yes,
+            };
+    int[] pos={0,1,2,3};
+    int maxnum=2;
+
     int currentPos = -1;
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        allSharedPrefernces = new AllSharedPrefernces(getApplicationContext());
         setContentView(R.layout.activity_game1__home);
 
-        allpairs.add(new Game1KeyValue(0,11));
-        allpairs.add(new Game1KeyValue(1,12));
-        allpairs.add(new Game1KeyValue(2,8));
-        allpairs.add(new Game1KeyValue(3,9));
-        allpairs.add(new Game1KeyValue(4,14));
-        allpairs.add(new Game1KeyValue(5,10));
-        allpairs.add(new Game1KeyValue(6,13));
-        allpairs.add(new Game1KeyValue(7,15));
 
+        allpairs.add(new Game1KeyValue(R.drawable.yes,R.drawable.yes_ar));
+        allpairs.add(new Game1KeyValue(R.drawable.no ,R.drawable.no_ar));
+
+        DisplayMetrics displayMetrics = new DisplayMetrics();
+        getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+        height = displayMetrics.heightPixels;
+        width = displayMetrics.widthPixels;
+        tv6 = findViewById(R.id.g2_tv4_pairsCount);
+        myPoints=findViewById(R.id.g2_tv6_Ponits);
+        pointsCounter=getPoints();
+        myPoints.setText(pointsCounter+"");
+
+        tv6.setText(""+drawable.length /2);
         mTextViewCountDown = findViewById(R.id.g1_tv2_text_view_countdown);
         textViewPairs=findViewById(R.id.g1_tv2_pairsCount);
-
         mButtonStartPause = findViewById(R.id.button_start_pause);
         mButtonReset = findViewById(R.id.button_reset);
-
         mButtonStartPause.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -91,71 +99,134 @@ public class game1_HomeActivity extends AppCompatActivity {
         mButtonReset.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                resetTimer();
+
+                playAgain(v);
             }
         });
         updateCountDownText();
-
-        ImageAdapter imageAdapter = new ImageAdapter(this);
-        GridView gridView = (GridView)findViewById(R.id.gridView);
+        final ImageAdapter imageAdapter = new ImageAdapter(this,height,width,drawable.length);
+        GridView gridView = findViewById(R.id.gridView);
+        gridView.setNumColumns( drawable.length / 2);
         gridView.setEnabled(false);
 
         gridView.setAdapter(imageAdapter);
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                if (currentPos < 0 )
-                {
+
+                if (currentPos < 0) {
                     currentPos = position;
                     curView = (ImageView) view;
+
+                    MediaPlayer.create(game1_HomeActivity.this, R.raw.parrot).start();
                     ((ImageView) view).setImageResource(drawable[pos[position]]);
-                }
-                else
-                    {
-                    if (currentPos == position)
-                    {
-                        ((ImageView) view).setImageResource(R.drawable.hidden);
-                    }
-                    else
-                        {
-                            for(Game1KeyValue d: allpairs) {
-                                if ((d.key == currentPos) || (d.value == currentPos)) {
-                                    if (d.key == currentPos) {
-                                        if (d.value == position) {
+
+                    view1 = view;
+                    position1 = position;
+
+                } else {
+                    if (currentPos == position) {
+                        ((ImageView) view).setImageResource(R.drawable.questionbg);
+                    } else {
+                        for (Game1KeyValue d : allpairs) {
+                            if ((d.key == drawable[currentPos]) || (d.value == drawable[currentPos])) {
+                                if (d.key == drawable[currentPos]) {
+                                    if (d.value == drawable[position]) {
+                                        isMatch = true;
+                                        d.setUsed(1);
+                                    }
+                                    break;
+                                } else {
+                                    if (d.value == drawable[currentPos]) {
+                                        if (d.key == drawable[position]) {
                                             isMatch = true;
                                         }
                                         break;
-                                    } else {
-                                        if (d.value == currentPos) {
-                                            if (d.key == position) {
-                                                isMatch = true;
-                                            }
-                                            break;
-                                        }
                                     }
                                 }
                             }
+                        }
+
+                        ((ImageView) view).setImageResource(drawable[pos[position]]);
+                        view1 = view;
 
                         if (!isMatch) {
-                            curView.setImageResource(R.drawable.hidden);
-                            Toast.makeText(game1_HomeActivity.this, "Not Match!", Toast.LENGTH_LONG).show();
-                             } else {
-                            isMatch=false;
+                            Handler handler = new Handler();
+                            handler.postDelayed(new Runnable() {
+                                @Override
+                                public void run() {
+                                    curView.setImageResource(R.drawable.questionbg);
+                                    ((ImageView) view1).setImageResource(R.drawable.questionbg);
+                                }
+                            }, 600);
+                            MediaPlayer mediaPlayer10 = MediaPlayer.create(game1_HomeActivity.this, R.raw.dog);
+                            mediaPlayer10.start();
+                        }
+                        else if (isMatch) {
+                            isMatch = false;
                             ((ImageView) view).setImageResource(drawable[pos[position]]);
-                            countPair++;
-                            if(countPair != 8) {
-                                MediaPlayer mediaPlayer3 = MediaPlayer.create(game1_HomeActivity.this, R.raw.sound3);
-                                mediaPlayer3.start();
+                            switch (currentPos) {
+                                case R.drawable.sample_0:
+                                    MediaPlayer mediaPlayer2 = MediaPlayer.create(game1_HomeActivity.this, R.raw.rabbit);
+                                    mediaPlayer2.start();
+                                    break;
+                                default:
+                                    MediaPlayer mediaPlayer10 = MediaPlayer.create(game1_HomeActivity.this, R.raw.lion);
+                                    mediaPlayer10.start();
+                                    break;
                             }
+
+                            countPair++;
+                            pointsCounter=pointsCounter+1L;
+                            myPoints.setText(pointsCounter+"");
                             textViewPairs.setText(countPair + "");
+                            if(countPair != maxnum)
+                            {
+                                int curNum=drawable.length;
 
-                            if (countPair == 8) {
-                                bestrecord();
-                                pauseTimer();
-                                resetTimer();
+                                int[] newArray = new int[curNum-2];
 
-                                MediaPlayer mediaPlayer2 = MediaPlayer.create(game1_HomeActivity.this, R.raw.sound1);
-                                mediaPlayer2.start();
+                                int k=0;
+                                for(int i=0;i<curNum;i++)
+                                {
+                                    if(i==position || i==currentPos)
+                                    {
+
+                                    }
+                                    else
+                                    {
+                                        newArray[k] = drawable[i];
+                                        k++;
+                                    }
+                                }
+                                drawable=newArray;
+                                Handler handler = new Handler();
+                                handler.postDelayed(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        removeFromGrid(drawable);
+                                    }
+                                }, 1000);
+
+                            }
+                            else
+                            if (countPair == maxnum) {
+                                MediaPlayer mediaPlayer3 = MediaPlayer.create(game1_HomeActivity.this, R.raw.sound1);
+                                mediaPlayer3.start();
+
+                                try
+                                {
+                                    Thread.sleep(500);
+                                }
+                                catch (InterruptedException e) {
+                                    e.printStackTrace();
+                                }
+                                passToNext(view);
+                            }
+                            try {
+                                Thread.sleep(500);
+                            } catch (InterruptedException e) {
+                                e.printStackTrace();
                             }
                         }
                     }
@@ -163,6 +234,16 @@ public class game1_HomeActivity extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    private void removeFromGrid(int[] arr)
+    {
+        GridView gridView = findViewById(R.id.gridView);
+        gridView.setAdapter(null);
+        imageAdapter2=new ImageAdapter(this,height,width,drawable.length);
+        gridView.setNumColumns(drawable.length / 2);
+        gridView.setAdapter(imageAdapter2);
+        currentPos = -1;
     }
 
     private void startTimer() {
@@ -175,17 +256,38 @@ public class game1_HomeActivity extends AppCompatActivity {
 
             @Override
             public void onFinish() {
-                mTimerRunning = false;
-                mButtonStartPause.setText("Start");
-                mButtonStartPause.setVisibility(View.INVISIBLE);
-                mButtonReset.setVisibility(View.VISIBLE);
+
+                AlertDialog.Builder builder = new AlertDialog.Builder(game1_HomeActivity.this);
+
+                builder.setCancelable(true);
+                builder.setTitle("            انتهت اللعبة                        ");
+                builder.setMessage("حظ أوفر المرة القادمة");
+
+                builder.setNegativeButton("الخروج من اللعبة", new DialogInterface.OnClickListener(){
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                       backToFirstMethod();
+
+                    }
+                });
+
+                builder.setPositiveButton("العب مرة أخرى", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        Intent intent = getIntent();
+                        finish();
+                        startActivity(intent);
+                    }
+                });
+                builder.show();
+
             }
         }.start();
         mTimerRunning = true;
         mButtonStartPause.setText("pause");
         mButtonReset.setVisibility(View.INVISIBLE);
-
-        GridView gridView = (GridView)findViewById(R.id.gridView);
+        GridView gridView = findViewById(R.id.gridView);
+        gridView.setNumColumns(drawable.length / 2);
         gridView.setEnabled(true);
     }
 
@@ -194,7 +296,8 @@ public class game1_HomeActivity extends AppCompatActivity {
         mTimerRunning = false;
         mButtonStartPause.setText("Start");
         mButtonReset.setVisibility(View.VISIBLE);
-        GridView gridView = (GridView)findViewById(R.id.gridView);
+        GridView gridView = findViewById(R.id.gridView);
+        gridView.setNumColumns(drawable.length / 2);
         gridView.setEnabled(false);
     }
 
@@ -205,6 +308,7 @@ public class game1_HomeActivity extends AppCompatActivity {
         mButtonStartPause.setVisibility(View.VISIBLE);
         resetGrid();
     }
+
     private void updateCountDownText() {
         int minutes = (int) (mTimeLeftInMillis / 1000) / 60;
         int seconds = (int) (mTimeLeftInMillis / 1000) % 60;
@@ -215,41 +319,44 @@ public class game1_HomeActivity extends AppCompatActivity {
     private void resetGrid()
     {
         textViewPairs.setText("0");
-        GridView gridView = (GridView)findViewById(R.id.gridView);
+        GridView gridView = findViewById(R.id.gridView);
         gridView.setAdapter(null);
-        ImageAdapter imageAdapter = new ImageAdapter(this);
+        ImageAdapter imageAdapter = new ImageAdapter(this,height,width,drawable.length);
+        gridView.setNumColumns(drawable.length / 2);
         gridView.setAdapter(imageAdapter);
         gridView.setEnabled(false);
         currentPos = -1;
         countPair=0;
     }
 
-    private void bestrecord()
+
+    public void passToNext(View view)
     {
-        mtimeUsed=  START_TIME_IN_MILLIS-mTimeLeftInMillis;
-        bestrecord=findViewById(R.id.g2_tv6_bestRecord);
-        if(bestrecord.getText().toString().equals("-"))
-        {
-            int minutes = (int) (mtimeUsed / 1000) / 60;
-            int seconds = (int) (mtimeUsed / 1000) % 60;
-            bestrecord.setText(String.format(Locale.getDefault(), "%02d:%02d", minutes, seconds));
-        }
-        else
-        {
-            String str1=bestrecord.getText().toString();
-            String[] arrOfStr = str1.split(":");
-            int m1=Integer.parseInt(arrOfStr[0]);
-            int s1=Integer.parseInt(arrOfStr[1]);
-
-            int minutes = (int) (mtimeUsed / 1000) / 60;
-            int seconds = (int) (mtimeUsed / 1000) % 60;
-
-            if(m1 > minutes || (m1==minutes && s1>seconds))
-            {
-
-                bestrecord.setText(String.format(Locale.getDefault(), "%02d:%02d", minutes, seconds));
-            }
-        }
-
+        allSharedPrefernces.writeTimer1(mTimeLeftInMillis);
+        allSharedPrefernces.initPointCounter(getPoints());
+        startActivity(new Intent(this,game1_secondActivity.class));
+        finish();
     }
+
+    public void playAgain(View view)
+    {
+        Intent intent = getIntent();
+        finish();
+        startActivity(intent);
+    }
+
+    public void backToFirstMethod()
+    {
+        startActivity(new Intent(this, indexActivity.class));
+        finish();
+    }
+
+    public Long getPoints()
+    {
+        SchoolDbHelper schoolDbHelper=new SchoolDbHelper(this);
+        SQLiteDatabase mydatabase=schoolDbHelper.getReadableDatabase();
+        Long c= schoolDbHelper.getCurrentPoints(11,mydatabase);
+        return c;
+    }
+
 }

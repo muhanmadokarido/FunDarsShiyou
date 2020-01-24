@@ -5,25 +5,22 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#f0FF87"
     tools:context=".indexActivity">
-
-    <LinearLayout
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:orientation="horizontal" >
 
         <TextView
             android:id="@+id/textView2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="70dp"
-            android:layout_marginLeft="8dp"
+            android:layout_marginStart="100dp"
+            android:layout_marginLeft="100dp"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="30dp"
             android:layout_marginRight="8dp"
-            android:text="Welcome To Our App"
+            android:text="المستوى الأول"
             android:textStyle="bold"
-            android:textSize="20sp"
+            android:textColor="#800000"
+            android:textSize="30sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -32,20 +29,15 @@
         android:id="@+id/button2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="30dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="0dp"
-        android:layout_marginRight="8dp"
+            android:gravity="right"
         android:onClick="logOut"
-        android:text="LogOut"
+            android:textSize="20sp"
+        android:text="تسجيل الخروج"
         app:layout_constraintEnd_toEndOf="parent"
+            android:textColor="#cf8000"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView2"
         android:layout_alignParentRight="true"
         />
-
-    </LinearLayout>
 
     <androidx.recyclerview.widget.RecyclerView
         android:layout_width="match_parent"

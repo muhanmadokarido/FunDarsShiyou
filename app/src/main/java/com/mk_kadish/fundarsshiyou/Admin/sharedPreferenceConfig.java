@@ -23,10 +23,25 @@ public class sharedPreferenceConfig
         editor.commit();
     }
 
+    public void writeStudentLoginStatus(boolean status)
+    {
+        SharedPreferences.Editor editor=sharedPreferences.edit();
+        editor.putBoolean(context.getResources().getString(R.string.Student_login_status_preference),status);
+        editor.commit();
+    }
+
     public boolean readLoginStatus()
     {
         boolean status=false;
         status=sharedPreferences.getBoolean(context.getResources().getString(R.string.login_status_preference),false);
+        return status;
+    }
+
+
+    public boolean readStudentLoginStatus()
+    {
+        boolean status=false;
+        status=sharedPreferences.getBoolean(context.getResources().getString(R.string.Student_login_status_preference),false);
         return status;
     }
 }

@@ -39,7 +39,7 @@ public class recyclerAdapter extends RecyclerView.Adapter<recyclerAdapter.ImageV
     {
         int image_id=images[position];
         holder.album.setImageResource(image_id);
-        holder.album_title.setText("Image:"+position);
+      //  holder.album_title.setText("Image:"+position);
     }
 
     @Override
@@ -50,14 +50,13 @@ public class recyclerAdapter extends RecyclerView.Adapter<recyclerAdapter.ImageV
     public static class ImageViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener
     {
         ImageView album;
-        TextView album_title;
+       // TextView album_title;
         Context context;
         int[] images;
 
         public ImageViewHolder(@NonNull View itemView,Context context,int[] images ) {
             super(itemView);
             album=itemView.findViewById(R.id.album);
-            album_title=itemView.findViewById(R.id.album_title);
             itemView.setOnClickListener(this);
             this.context=context;
             this.images=images;
@@ -65,34 +64,20 @@ public class recyclerAdapter extends RecyclerView.Adapter<recyclerAdapter.ImageV
 
         @Override
         public void onClick(View v) {
-           // ImageView imageView1 = null;
-           // ImageView imageView2 = null;
             int curPos = images[getAdapterPosition()];
 
             switch (curPos)
             {
-                case R.drawable.image1:
-                    context.startActivity(new Intent(context, game1_HomeActivity.class));
-                    break;
-                case R.drawable.image2:
-                    context.startActivity(new Intent(context, game2_HomeActivity.class));
-                    break;
-                case R.drawable.image3:
+                case R.drawable.l1p1g1numbers:
                     context.startActivity(new Intent(context, game3_HomeActivity.class));
                     break;
-                case R.drawable.image4:
-                    context.startActivity(new Intent(context, game4_HomeActivity.class));
-                    break;
-                case R.drawable.image5:
-                    context.startActivity(new Intent(context, game1_HomeActivity.class));
-                    break;
-                case R.drawable.image6:
+                case R.drawable.l1p1g2animals:
                     context.startActivity(new Intent(context, game2_HomeActivity.class));
                     break;
-                case R.drawable.image7:
-                    context.startActivity(new Intent(context, game3_HomeActivity.class));
+                case R.drawable.l1p1g2words:
+                    context.startActivity(new Intent(context, game1_HomeActivity.class));
                     break;
-                case R.drawable.image8:
+                case R.drawable.l1p1g2arrangesentence:
                     context.startActivity(new Intent(context, game4_HomeActivity.class));
                     break;
             }

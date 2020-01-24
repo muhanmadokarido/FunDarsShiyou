@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".althaniActivity"
+    android:orientation="vertical"
+    android:background="@drawable/background02"
+    >
+
+    <RelativeLayout
+        android:id="@+id/lay3"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:layout_weight="0.1"
+        android:orientation="vertical"
+        >
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/lay1"
+        android:layout_width="match_parent"
+        android:layout_height="179dp"
+        android:layout_weight="0.4"
+        android:orientation="vertical">
+
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/lay2"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.5"
+        android:orientation="vertical"
+        >
+
+        <Button
+            android:id="@+id/button_start_pause"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:gravity="center"
+            android:textSize="40dp"
+            android:text="العب وتعلم الانكليزية"
+            android:onClick="startLearn1"/>
+
+        <Button
+            android:id="@+id/button_reset"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_below="@+id/button_start_pause"
+            android:layout_centerHorizontal="true"
+            android:gravity="center"
+            android:text="اعثر على كنزك"
+            android:textSize="40dp" />
+
+
+    </RelativeLayout>
+
+</LinearLayout>

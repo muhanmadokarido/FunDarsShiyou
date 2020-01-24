@@ -8,18 +8,17 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.mk_kadish.fundarsshiyou.Admin.sharedPreferenceConfig;
+
 public class indexActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
+    private sharedPreferenceConfig preferenceConfig;
     private int[] images=
             {
-            R.drawable.image1,
-            R.drawable.image2,
-            R.drawable.image3,
-            R.drawable.image4,
-            R.drawable.image5,
-            R.drawable.image6,
-            R.drawable.image7,
-            R.drawable.image8
+                    R.drawable.l1p1g2words,
+                    R.drawable.l1p1g2animals,
+                    R.drawable.l1p1g1numbers,
+                    R.drawable.l1p1g2arrangesentence,
             };
     private recyclerAdapter adapter;
     private RecyclerView.LayoutManager layoutManager;
@@ -33,11 +32,12 @@ public class indexActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(layoutManager);
         adapter=new recyclerAdapter(images,this);
         recyclerView.setAdapter(adapter);
+        preferenceConfig=new sharedPreferenceConfig(getApplicationContext());
     }
 
     public void logOut(View view)
     {
-        //preferenceConfig.writeLoginStatus(false);
+        preferenceConfig.writeStudentLoginStatus(false);
         startActivity(new Intent(this,MainActivity.class));
         finish();
     }

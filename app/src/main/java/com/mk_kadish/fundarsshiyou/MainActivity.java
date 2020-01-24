@@ -34,6 +34,12 @@ public class MainActivity extends AppCompatActivity {
             startActivity(new Intent(this, HomeActivity.class));
             finish();
         }
+
+        if (preferenceConfig.readStudentLoginStatus()) {
+
+            startActivity(new Intent(this, althaniActivity.class));
+            finish();
+        }
     }
 
     public void loginUser(View view) {
@@ -63,8 +69,8 @@ public class MainActivity extends AppCompatActivity {
             }
             if((Authorized) || (name.equals("user") && password.equals("123456")))
             {
-                startActivity(new Intent(this, indexActivity.class));
-                //preferenceConfig.writeLoginStatus(true);
+                preferenceConfig.writeStudentLoginStatus(true);
+                startActivity(new Intent(this, althaniActivity.class));
                 finish();
             }
             else

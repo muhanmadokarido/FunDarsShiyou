@@ -7,12 +7,13 @@
     android:layout_height="match_parent"
     tools:context=".Game1.game1_HomeActivity"
     android:orientation="vertical"
+    android:background="@drawable/background3"
     >
 
     <RelativeLayout
         android:id="@+id/lay3"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_height="100dp"
         android:layout_weight="0.1"
         android:orientation="vertical"
         >
@@ -22,50 +23,67 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="0"
-            android:textColor="@android:color/holo_green_dark"
-            android:textSize="30sp" />
+            android:textStyle="bold"
+            android:textColor="#00ffff"
+            android:textSize="20sp"/>
 
         <TextView
             android:id="@+id/g1_tv3_pairsCount"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text=" Of"
             android:layout_toEndOf="@+id/g1_tv2_pairsCount"
             android:layout_toRightOf="@+id/g1_tv2_pairsCount"
-            android:textColor="@android:color/black"
-            android:textSize="30sp" />
+            android:text=" / "
+            android:textStyle="bold"
+            android:textColor="#00ffff"
+            android:textSize="20sp"
+            />
 
         <TextView
             android:id="@+id/g2_tv4_pairsCount"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text=" 8"
             android:layout_toEndOf="@+id/g1_tv3_pairsCount"
             android:layout_toRightOf="@+id/g1_tv3_pairsCount"
-            android:textColor="@android:color/holo_green_dark"
-            android:textSize="30sp" />
-
-        <TextView
-            android:id="@+id/g2_tv6_bestRecord"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="-"
-            android:textColor="@android:color/holo_red_dark"
-            android:gravity="right"
             android:textStyle="bold"
-            android:textSize="30sp" />
+            android:text=" 8"
+            android:textColor="#00ffff"
+            android:textSize="20sp"/>
 
         <TextView
-            android:id="@+id/g2_tv5_bestRecord"
+            android:id="@+id/g2_tv6_Ponits"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="80sp"
-            android:layout_marginRight="80sp"
-            android:text=" Best Record"
             android:gravity="right"
+            android:text="0"
+            android:layout_toEndOf="@+id/g2_tv4_pairsCount"
+            android:layout_toRightOf="@+id/g2_tv4_pairsCount"
+            android:textColor="#00ffff"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            />
 
-            android:textColor="@android:color/black"
-            android:textSize="30sp" />
+
+        <TextView
+            android:id="@+id/g1_tv2_text_view_level"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="المستوى 1-1"
+            android:layout_centerHorizontal="true"
+            android:textColor="#00ffff"
+            android:textSize="20sp"
+            />
+
+        <TextView
+            android:id="@+id/g1_tv2_text_view_countdown"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/g1_tv2_text_view_level"
+            android:text="00:00"
+            android:textStyle="bold"
+            android:layout_centerHorizontal="true"
+            android:textColor="#00b3F0"
+            android:textSize="20sp" />
 
     </RelativeLayout>
 
@@ -73,17 +91,18 @@
         android:id="@+id/lay1"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="0.7"
+        android:layout_weight="0.6"
         android:orientation="vertical"
         >
 
         <GridView
+            android:id="@+id/gridView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/gridView"
+            android:horizontalSpacing="10dp"
             android:numColumns="4"
-            android:stretchMode="columnWidth">
-        </GridView>
+            android:paddingLeft="50dp"
+            android:verticalSpacing="10dp"></GridView>
 
     </RelativeLayout>
 
@@ -95,35 +114,25 @@
         android:orientation="vertical"
         >
 
-        <TextView
-            android:id="@+id/g1_tv2_text_view_countdown"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="00:00"
-            android:layout_centerHorizontal="true"
-            android:textColor="@android:color/black"
-            android:textSize="40sp" />
-
         <Button
             android:id="@+id/button_start_pause"
+            android:padding="20dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/g1_tv2_text_view_countdown"
             android:layout_centerHorizontal="true"
-            android:text="start" />
+            android:text="ابدأ" />
 
         <Button
             android:id="@+id/button_reset"
+            android:padding="20dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/g1_tv2_text_view_countdown"
-            android:layout_marginStart="11dp"
-            android:layout_marginLeft="11dp"
-            android:layout_toEndOf="@+id/button_start_pause"
-            android:layout_toRightOf="@+id/button_start_pause"
-            android:text="reset"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@+id/button_start_pause"
+            android:text="إعادة"
             android:visibility="invisible"
             tools:visibility="visible" />
+
 
     </RelativeLayout>
 

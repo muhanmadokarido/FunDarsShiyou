@@ -2,6 +2,7 @@ package com.mk_kadish.fundarsshiyou.Game1;
 
 
 import android.content.Context;
+import android.util.DisplayMetrics;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -10,20 +11,23 @@ import android.widget.ImageView;
 
 import com.mk_kadish.fundarsshiyou.R;
 
-/**
- * Created by luongvo on 14/05/2017.
- */
 
 public class ImageAdapter extends BaseAdapter {
     private final Context context;
+    private int screenLength;
+    private  int screenWidth;
+    public int elementCount;
 
-    public ImageAdapter(Context context) {
+    public ImageAdapter(Context context,int screenLength, int screenWidth,int arraySize) {
         this.context = context;
+        this.screenLength=screenLength;
+        this.screenWidth=screenWidth;
+        this.elementCount=arraySize;
     }
 
     @Override
     public int getCount() {
-        return 16;
+        return elementCount;
     }
 
     @Override
@@ -41,11 +45,11 @@ public class ImageAdapter extends BaseAdapter {
         ImageView imageView;
         if (convertView == null) {
             imageView = new ImageView(this.context);
-            imageView.setLayoutParams(new GridView.LayoutParams(350, 350));
+            imageView.setLayoutParams(new GridView.LayoutParams(250, 350));
             imageView.setScaleType(ImageView.ScaleType.FIT_XY);
         }
         else imageView = (ImageView)convertView;
-        imageView.setImageResource(R.drawable.hidden);
+        imageView.setImageResource(R.drawable.questionbg);
         return imageView;
     }
 }

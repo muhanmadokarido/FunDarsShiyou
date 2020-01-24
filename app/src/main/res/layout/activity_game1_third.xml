@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Game1.game1_thirdActivity"
+    android:orientation="vertical"
+    android:background="@drawable/background3"
+    >
+
+    <RelativeLayout
+        android:id="@+id/lay3"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:layout_weight="0.1"
+        android:orientation="vertical"
+        >
+
+        <TextView
+            android:id="@+id/g1_tv2_pairsCount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="0"
+            android:textStyle="bold"
+            android:textColor="#00ffff"
+            android:textSize="20sp"/>
+
+        <TextView
+            android:id="@+id/g1_tv3_pairsCount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toEndOf="@+id/g1_tv2_pairsCount"
+            android:layout_toRightOf="@+id/g1_tv2_pairsCount"
+            android:text=" / "
+            android:textStyle="bold"
+            android:textColor="#00ffff"
+            android:textSize="20sp"
+            />
+
+        <TextView
+            android:id="@+id/g2_tv4_pairsCount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toEndOf="@+id/g1_tv3_pairsCount"
+            android:layout_toRightOf="@+id/g1_tv3_pairsCount"
+            android:textStyle="bold"
+            android:text=" 8"
+            android:textColor="#00ffff"
+            android:textSize="20sp"/>
+
+        <TextView
+            android:id="@+id/l1_p3_tv6_Ponits"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="right"
+            android:text="0"
+            android:layout_toEndOf="@+id/g2_tv4_pairsCount"
+            android:layout_toRightOf="@+id/g2_tv4_pairsCount"
+            android:textColor="#00ffff"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            />
+
+        <TextView
+            android:id="@+id/g1_tv2_text_view_level"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="المستوى 1-3"
+            android:layout_centerHorizontal="true"
+            android:textColor="#00ffff"
+            android:textSize="20sp"
+            />
+
+        <TextView
+            android:id="@+id/g1_tv2_text_view_countdown"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/g1_tv2_text_view_level"
+            android:text="00:00"
+            android:textStyle="bold"
+            android:layout_centerHorizontal="true"
+            android:textColor="#00b3F0"
+            android:textSize="20sp" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/lay1"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.6"
+        android:orientation="vertical"
+        >
+
+
+        <GridView
+            android:id="@+id/gridView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:horizontalSpacing="10dp"
+            android:numColumns="4"
+            android:paddingLeft="50dp"
+            android:verticalSpacing="10dp"></GridView>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/lay2"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.25"
+        android:orientation="vertical"
+        >
+
+        <Button
+            android:id="@+id/button_start_pause"
+            android:padding="20dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:text="ابدأ" />
+
+        <Button
+            android:id="@+id/button_reset"
+            android:padding="20dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@+id/button_start_pause"
+            android:text="إعادة"
+            android:visibility="invisible"
+            tools:visibility="visible" />
+
+
+    </RelativeLayout>
+
+</LinearLayout>

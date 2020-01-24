@@ -2,6 +2,14 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.mk_kadish.fundarsshiyou">
 
+    <supports-screens
+        android:resizeable="true"
+        android:smallScreens="true"
+        android:largeScreens="true"
+        android:xlargeScreens="true"
+        android:normalScreens="true"
+        android:anyDensity="true"/>
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -9,16 +17,26 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
+        <activity android:name=".althalithActivity"></activity>
+        <activity android:name=".althaniActivity"></activity>
+        <activity android:name=".Game1.game1_thirdActivity" />
+        <activity android:name=".Game1.game1_forthActivity" />
+        <activity android:name=".Game1.QuizActivity" />
+        <activity android:name=".Game1.game1_excersice" />
+        <activity android:name=".Game1.game1_secondActivity" />
         <activity android:name=".Game4.game4_HomeActivity"></activity>
         <activity android:name=".Game3.game3_HomeActivity" />
         <activity android:name=".Game2.game2_HomeActivity" />
-        <activity android:name=".Game1.game1_HomeActivity" />
-        <activity android:name=".indexActivity">
+        <activity android:name=".Game1.game1_HomeActivity">
+
         </activity>
+        <activity android:name=".indexActivity" >
+
+        </activity>
+
         <activity android:name=".Admin.userManagementActivity" />
         <activity android:name=".Admin.HomeActivity" />
-        <activity android:name=".MainActivity" >
+        <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
