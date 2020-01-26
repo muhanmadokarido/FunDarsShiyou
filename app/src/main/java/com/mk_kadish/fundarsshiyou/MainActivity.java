@@ -67,15 +67,30 @@ public class MainActivity extends AppCompatActivity {
                    break;
                }
             }
+            boolean mawjuud=false;
+
             if((Authorized) || (name.equals("user") && password.equals("123456")))
             {
                 preferenceConfig.writeStudentLoginStatus(true);
                 startActivity(new Intent(this, althaniActivity.class));
                 finish();
+                SchoolDbHelper schoolDbHelper=new SchoolDbHelper(this);
+                SQLiteDatabase database=schoolDbHelper.getReadableDatabase();
+                Cursor cursor=schoolDbHelper.readUsers(database);
+                while(cursor.moveToNext())
+                {
+                    int id =cursor.getInt(cursor.getColumnIndex(StudentContract.studentEntry.user_id));
+                    if(id==11)
+                        mawjuud=true;
+                }
+                if(!mawjuud)
+                schoolDbHelper.addUser(11,"user11",database);
+                mawjuud=false;
+                schoolDbHelper.close();
             }
             else
             {
-                Toast.makeText(this, "Error Credentials....Try again", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "بياناتك غير صحيحة .... حاول مرة أخرى ", Toast.LENGTH_SHORT).show();
                 UserName.setText("");
                 UserPassword.setText("");
             }

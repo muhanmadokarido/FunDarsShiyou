@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.GridView;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 
 import com.mk_kadish.fundarsshiyou.R;
 
@@ -45,7 +46,11 @@ public class ImageAdapter extends BaseAdapter {
         ImageView imageView;
         if (convertView == null) {
             imageView = new ImageView(this.context);
-            imageView.setLayoutParams(new GridView.LayoutParams(250, 350));
+
+            //LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(screenWidth / 7,screenLength /4);
+//           // convertView.setLayoutParams(new GridView.LayoutParams(params));
+
+            imageView.setLayoutParams(new GridView.LayoutParams(screenWidth / 7,screenLength /4));
             imageView.setScaleType(ImageView.ScaleType.FIT_XY);
         }
         else imageView = (ImageView)convertView;

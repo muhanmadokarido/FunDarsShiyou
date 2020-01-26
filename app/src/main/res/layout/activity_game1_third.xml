@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     tools:context=".Game1.game1_thirdActivity"
     android:orientation="vertical"
-    android:background="@drawable/background3"
+    android:background="@drawable/background33"
     >
 
     <RelativeLayout

@@ -1,5 +1,6 @@
 package com.mk_kadish.fundarsshiyou.Game1;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.media.MediaPlayer;
@@ -13,10 +14,14 @@ import android.widget.Button;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import com.mk_kadish.fundarsshiyou.AllSharedPrefernces;
 import com.mk_kadish.fundarsshiyou.DatabaseRelations.SchoolDbHelper;
 import com.mk_kadish.fundarsshiyou.R;
+import com.mk_kadish.fundarsshiyou.indexActivity;
+
 import java.util.ArrayList;
 import java.util.Locale;
 
@@ -256,14 +261,34 @@ public class game1_thirdActivity extends AppCompatActivity {
 
             @Override
             public void onFinish() {
-                mTimerRunning = false;
-                mButtonStartPause.setText("Start");
-                mButtonStartPause.setVisibility(View.INVISIBLE);
-                mButtonReset.setVisibility(View.VISIBLE);
+
+                AlertDialog.Builder builder = new AlertDialog.Builder(game1_thirdActivity.this);
+
+                builder.setCancelable(true);
+                builder.setTitle("            انتهت اللعبة                        ");
+                builder.setMessage("حظ أوفر المرة القادمة");
+
+                builder.setNegativeButton("الخروج من اللعبة", new DialogInterface.OnClickListener(){
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        backToFirstMethod();
+
+                    }
+                });
+
+                builder.setPositiveButton("العب مرة أخرى", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        Intent intent = getIntent();
+                        finish();
+                        startActivity(intent);
+                    }
+                });
+                builder.show();
             }
         }.start();
         mTimerRunning = true;
-        mButtonStartPause.setText("pause");
+        mButtonStartPause.setText("ايقاف مؤقت");
         mButtonReset.setVisibility(View.INVISIBLE);
         GridView gridView = findViewById(R.id.gridView);
         gridView.setNumColumns(drawable.length / 2);
@@ -273,7 +298,7 @@ public class game1_thirdActivity extends AppCompatActivity {
     private void pauseTimer() {
         mCountDownTimer.cancel();
         mTimerRunning = false;
-        mButtonStartPause.setText("Start");
+        mButtonStartPause.setText("استئناف");
         mButtonReset.setVisibility(View.VISIBLE);
         GridView gridView = findViewById(R.id.gridView);
         gridView.setNumColumns(drawable.length / 2);
@@ -325,5 +350,9 @@ public class game1_thirdActivity extends AppCompatActivity {
         startActivity(new Intent(this,game1_HomeActivity.class));
         finish();
     }
-
+    public void backToFirstMethod()
+    {
+        startActivity(new Intent(this, indexActivity.class));
+        finish();
+    }
 }

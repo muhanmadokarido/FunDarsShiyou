@@ -2,6 +2,7 @@ package com.mk_kadish.fundarsshiyou;
 
 import android.content.Context;
 import android.content.Intent;
+import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,17 +20,24 @@ import com.mk_kadish.fundarsshiyou.Game4.game4_HomeActivity;
 public class recyclerAdapter extends RecyclerView.Adapter<recyclerAdapter.ImageViewHolder> {
     private Context context;
     private int[] images;
+    private int screenWidth;
 
-    public recyclerAdapter(int[] images,Context context)
+    public recyclerAdapter(int[] images,Context context,int sw)
     {
         this.images=images;
         this.context=context;
-
+        screenWidth=sw;
     }
     @NonNull
     @Override
     public ImageViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view= LayoutInflater.from(parent.getContext()).inflate(R.layout.album_layout,parent,false);
+
+        ViewGroup.LayoutParams layoutParams = view.getLayoutParams();
+        layoutParams.width = screenWidth / 2;
+        view.setLayoutParams(layoutParams);
+
+
         ImageViewHolder imageViewHolder=new ImageViewHolder(view,context,images);
         return imageViewHolder;
     }

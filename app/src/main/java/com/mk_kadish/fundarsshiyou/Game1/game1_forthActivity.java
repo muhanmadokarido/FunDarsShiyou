@@ -23,6 +23,8 @@ import com.mk_kadish.fundarsshiyou.AllSharedPrefernces;
 import com.mk_kadish.fundarsshiyou.DatabaseRelations.SchoolDbHelper;
 import com.mk_kadish.fundarsshiyou.DatabaseRelations.StudentContract;
 import com.mk_kadish.fundarsshiyou.R;
+import com.mk_kadish.fundarsshiyou.indexActivity;
+
 import java.util.ArrayList;
 import java.util.Locale;
 
@@ -83,7 +85,6 @@ public class game1_forthActivity extends AppCompatActivity {
         allpoints= allSharedPrefernces.readPoints();
         String valval=allpoints+"";
         myPoints.setText(valval);
-
 
         allpairs.add(new Game1KeyValue(R.drawable.great,R.drawable.great_ar));
         allpairs.add(new Game1KeyValue(R.drawable.yes,R.drawable.yes_ar));
@@ -267,14 +268,34 @@ public class game1_forthActivity extends AppCompatActivity {
 
             @Override
             public void onFinish() {
-                mTimerRunning = false;
-                mButtonStartPause.setText("Start");
-                mButtonStartPause.setVisibility(View.INVISIBLE);
-                mButtonReset.setVisibility(View.VISIBLE);
+
+                AlertDialog.Builder builder = new AlertDialog.Builder(game1_forthActivity.this);
+
+                builder.setCancelable(true);
+                builder.setTitle("            انتهت اللعبة                        ");
+                builder.setMessage("حظ أوفر المرة القادمة");
+
+                builder.setNegativeButton("الخروج من اللعبة", new DialogInterface.OnClickListener(){
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        backToFirstMethod1();
+
+                    }
+                });
+
+                builder.setPositiveButton("العب مرة أخرى", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        Intent intent = getIntent();
+                        finish();
+                        startActivity(intent);
+                    }
+                });
+                builder.show();
             }
         }.start();
         mTimerRunning = true;
-        mButtonStartPause.setText("pause");
+        mButtonStartPause.setText("إيقاف مؤقت");
         mButtonReset.setVisibility(View.INVISIBLE);
         GridView gridView = findViewById(R.id.gridView);
         gridView.setNumColumns(drawable.length / 2);
@@ -284,7 +305,7 @@ public class game1_forthActivity extends AppCompatActivity {
     private void pauseTimer() {
         mCountDownTimer.cancel();
         mTimerRunning = false;
-        mButtonStartPause.setText("Start");
+        mButtonStartPause.setText("استئناف");
         mButtonReset.setVisibility(View.VISIBLE);
         GridView gridView = findViewById(R.id.gridView);
         gridView.setNumColumns(drawable.length / 2);
@@ -366,6 +387,11 @@ public class game1_forthActivity extends AppCompatActivity {
         finish();
     }
 
+    public void backToFirstMethod1()
+    {
+        startActivity(new Intent(this, indexActivity.class));
+        finish();
+    }
     public void UpdatePoints()
     {
         int uid=11;

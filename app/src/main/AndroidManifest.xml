@@ -18,25 +18,40 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".althalithActivity"></activity>
-        <activity android:name=".althaniActivity"></activity>
-        <activity android:name=".Game1.game1_thirdActivity" />
-        <activity android:name=".Game1.game1_forthActivity" />
-        <activity android:name=".Game1.QuizActivity" />
-        <activity android:name=".Game1.game1_excersice" />
-        <activity android:name=".Game1.game1_secondActivity" />
-        <activity android:name=".Game4.game4_HomeActivity"></activity>
-        <activity android:name=".Game3.game3_HomeActivity" />
-        <activity android:name=".Game2.game2_HomeActivity" />
-        <activity android:name=".Game1.game1_HomeActivity">
+        <activity android:name=".althaniActivity"
+            android:screenOrientation="landscape"
+            >
 
         </activity>
-        <activity android:name=".indexActivity" >
+        <activity android:name=".Game1.game1_thirdActivity"
+            android:screenOrientation="landscape"
+            />
+        <activity android:name=".Game1.game1_forthActivity"
+            android:screenOrientation="landscape"
+            />
+        <activity android:name=".Game1.QuizActivity" />
+        <activity android:name=".Game1.game1_excersice" />
+        <activity android:name=".Game1.game1_secondActivity"
+            android:screenOrientation="landscape"
+            />
+        <activity android:name=".Game4.game4_HomeActivity"
+            ></activity>
+        <activity android:name=".Game3.game3_HomeActivity" />
+        <activity android:name=".Game2.game2_HomeActivity" />
+        <activity android:name=".Game1.game1_HomeActivity"
+            android:screenOrientation="landscape"
 
+            >
+
+        </activity>
+        <activity android:name=".indexActivity"
+            android:screenOrientation="landscape">
         </activity>
 
         <activity android:name=".Admin.userManagementActivity" />
         <activity android:name=".Admin.HomeActivity" />
-        <activity android:name=".MainActivity">
+        <activity android:name=".MainActivity"
+            >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -44,5 +59,12 @@
             </intent-filter>
         </activity>
     </application>
+
+    <supports-screens
+        android:smallScreens="true"
+        android:normalScreens="true"
+        android:largeScreens="true"
+        android:xlargeScreens="true"
+        android:anyDensity="true" />
 
 </manifest>

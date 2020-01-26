@@ -7,12 +7,14 @@ import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.Handler;
+import android.text.Layout;
 import android.util.DisplayMetrics;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.GridView;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -55,6 +57,7 @@ public class game1_HomeActivity extends AppCompatActivity {
                     R.drawable.no_ar,
                     R.drawable.yes_ar,
                     R.drawable.yes,
+
             };
     int[] pos={0,1,2,3};
     int maxnum=2;
@@ -66,7 +69,6 @@ public class game1_HomeActivity extends AppCompatActivity {
 
         allSharedPrefernces = new AllSharedPrefernces(getApplicationContext());
         setContentView(R.layout.activity_game1__home);
-
 
         allpairs.add(new Game1KeyValue(R.drawable.yes,R.drawable.yes_ar));
         allpairs.add(new Game1KeyValue(R.drawable.no ,R.drawable.no_ar));
@@ -104,10 +106,15 @@ public class game1_HomeActivity extends AppCompatActivity {
             }
         });
         updateCountDownText();
+
         final ImageAdapter imageAdapter = new ImageAdapter(this,height,width,drawable.length);
         GridView gridView = findViewById(R.id.gridView);
-        gridView.setNumColumns( drawable.length / 2);
+        gridView.setNumColumns(2);
         gridView.setEnabled(false);
+
+        RelativeLayout.LayoutParams parameter =  (RelativeLayout.LayoutParams) gridView.getLayoutParams();
+        parameter.setMargins(width * 2 /7, parameter.topMargin, parameter.rightMargin, parameter.bottomMargin); // left, top, right, bottom
+        gridView.setLayoutParams(parameter);
 
         gridView.setAdapter(imageAdapter);
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -241,7 +248,7 @@ public class game1_HomeActivity extends AppCompatActivity {
         GridView gridView = findViewById(R.id.gridView);
         gridView.setAdapter(null);
         imageAdapter2=new ImageAdapter(this,height,width,drawable.length);
-        gridView.setNumColumns(drawable.length / 2);
+        gridView.setNumColumns(2);
         gridView.setAdapter(imageAdapter2);
         currentPos = -1;
     }
@@ -284,20 +291,20 @@ public class game1_HomeActivity extends AppCompatActivity {
             }
         }.start();
         mTimerRunning = true;
-        mButtonStartPause.setText("pause");
+        mButtonStartPause.setText("إيقاف مؤقت");
         mButtonReset.setVisibility(View.INVISIBLE);
         GridView gridView = findViewById(R.id.gridView);
-        gridView.setNumColumns(drawable.length / 2);
+        gridView.setNumColumns(2);
         gridView.setEnabled(true);
     }
 
     private void pauseTimer() {
         mCountDownTimer.cancel();
         mTimerRunning = false;
-        mButtonStartPause.setText("Start");
+        mButtonStartPause.setText("استئناف");
         mButtonReset.setVisibility(View.VISIBLE);
         GridView gridView = findViewById(R.id.gridView);
-        gridView.setNumColumns(drawable.length / 2);
+        gridView.setNumColumns(2);
         gridView.setEnabled(false);
     }
 
@@ -322,13 +329,12 @@ public class game1_HomeActivity extends AppCompatActivity {
         GridView gridView = findViewById(R.id.gridView);
         gridView.setAdapter(null);
         ImageAdapter imageAdapter = new ImageAdapter(this,height,width,drawable.length);
-        gridView.setNumColumns(drawable.length / 2);
+        gridView.setNumColumns(2);
         gridView.setAdapter(imageAdapter);
         gridView.setEnabled(false);
         currentPos = -1;
         countPair=0;
     }
-
 
     public void passToNext(View view)
     {
@@ -358,5 +364,4 @@ public class game1_HomeActivity extends AppCompatActivity {
         Long c= schoolDbHelper.getCurrentPoints(11,mydatabase);
         return c;
     }
-
 }

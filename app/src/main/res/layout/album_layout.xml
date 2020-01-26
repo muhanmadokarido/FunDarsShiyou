@@ -2,29 +2,28 @@
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
+    android:layout_width="match_parent"
+    android:id="@+id/albumm"
+    android:layout_height="match_parent"
     android:padding="10dp"
-    android:elevation="12dp"
 
     >
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        android:weightSum="100" >
+
     <ImageView
-        android:layout_width="200dp"
-        android:layout_height="200dp"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
         android:scaleType="fitXY"
         android:id="@+id/album"
+        android:layout_weight="50"
+        android:background="@drawable/customborder"
         />
 
-<!--    <TextView-->
-<!--    android:layout_width="match_parent"-->
-<!--    android:layout_height="wrap_content"-->
-<!--        android:text="Image 10"-->
-<!--        android:padding="8dp"-->
-<!--        android:gravity="center"-->
-<!--        android:textSize="10dp"-->
-<!--        android:textStyle="bold"-->
-<!--        android:id="@+id/album_title"-->
-<!--    />-->
 
+    </LinearLayout>
 </LinearLayout>

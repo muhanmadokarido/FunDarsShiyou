@@ -19,7 +19,7 @@ public class althaniActivity extends AppCompatActivity {
 
     public void startLearn1(View view)
     {
-        startActivity(new Intent(this, althalithActivity.class));
+        startActivity(new Intent(this, indexActivity.class));
         finish();
     }
 
